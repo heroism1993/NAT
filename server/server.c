@@ -71,8 +71,9 @@ int main()
 					{
 						socketfd = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
 						connect(socketfd,(struct sockaddr*)&cliaddr,sizeof(cliaddr));
-						sleep(60);
+						sleep(30);
 						close(socketfd);
+						sleep(30);
 					}
 				}
 			}

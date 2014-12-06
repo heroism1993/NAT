@@ -5,7 +5,7 @@ struct register_data{
 	int type;
 	char name[20];
 	struct in_addr addr;
-	int port;
+	in_port_t port;
 	int result;	
 };
 

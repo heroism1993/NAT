@@ -15,9 +15,10 @@ options:
 int main(int argc,char** argv)
 {
 	int sockfd,i,n;
-	struct sockaddr_in servaddr;
+	struct sockaddr_in servaddr,localaddr;
 	struct register_data data_in,data_out;
-	if(argc!=3)
+	char tmp[100];
+	if(argc < 3)
 	{
 		exit(1);
 	}
@@ -49,6 +50,18 @@ int main(int argc,char** argv)
 				return 1;
 				break;
 			case SUCCESS:
+			{
+				ParceReady(&data_out,argv[2]);
+				write(sockfd,&data_out,sizeof(data_out));
+				if(getsockname(sockfd,(struct sockaddr*)&localaddr,&n))
+				{
+					dumperror("getsockname error\n");
+					return 1;
+				}
+				close(sockfd);
+				execl("/sbin/iptables","iptables","-t","nat","-A","PREROUTING","-p","tcp","--dport",itoa(ntohs(localaddr.sin_port),tmp,10),"-j","REDIRECT","--to-port",argv[3],NULL);
+
+			}
 			default: return 1;
 		}
 	}

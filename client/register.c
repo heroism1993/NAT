@@ -15,6 +15,12 @@ void ParceRequest(struct register_data* data_out,char *name)
 	return ;
 }
 
+void ParceReady(struct register_data* data_out, char *name)
+{
+	data_out->type = READY;
+	return ;
+}
+
 void ResultRegister(struct register_data* data_in)
 {
 	switch(data_in.result)

@@ -51,6 +51,7 @@ int main(int argc,char** argv)
 		printf("received data %d\n",n);
 		switch(data_in.result)
 		{
+			case NON_ALPHABET_NOT_ALLOWED_ERROR:
 			case SAME_NAME_REGISTER_ERROR:
 				printf("Please try again\n");
 			case ALREADY_REGISTERED_ERROR:

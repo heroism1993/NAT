@@ -23,6 +23,7 @@ enum{
 enum{
 	//for all
 	SUCCESS = 0x00,
+	NON_ALPHABET_NOT_ALLOWED_ERROR = 0x2000,
 
 	//for register
 	SAME_NAME_REGISTER_ERROR = 0x01,

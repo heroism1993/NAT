@@ -36,15 +36,17 @@ int main()
 	while(1)
 	{
 		tmp = sizeof(cliaddr);
-		connfd = accept(socketfd,(struct sockaddr *) &cliaddr,&tmp);
+		if((connfd = accept(socketfd,(struct sockaddr *) &cliaddr,&tmp))<0) continue;
 		if((childpid = fork())==0)
 		{
+			printf("connect created with %s:%d\n",inet_ntoa(cliaddr.sin_addr),htons(cliaddr.sin_port));
 			close(socketfd);
 			bzero(&data_in,sizeof(data_in));
 			n=read(connfd,&data_in,sizeof(data_in));
 			switch(data_in.type)
 			{
 				case REGISTER:
+						printf("begin to register:%s with pid:%d\n",data_in.name,getpid());
 						data_in.addr=cliaddr.sin_addr;
 						data_in.port=cliaddr.sin_port;
 						register_node(&data_in,&data_out,getpid());

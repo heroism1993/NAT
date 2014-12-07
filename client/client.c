@@ -47,6 +47,8 @@ int main(int argc,char** argv)
 		ParceRegister(&data_out,argv[2]);
 		write(sockfd,&data_out,sizeof(data_out));
 		n=read(sockfd,&data_in,sizeof(data_in));
+		printf("sizeof data_in:%d\n",sizeof(data_in));
+		printf("received data %d\n",n);
 		switch(data_in.result)
 		{
 			case SAME_NAME_REGISTER_ERROR:
@@ -67,10 +69,14 @@ int main(int argc,char** argv)
 				}
 				close(sockfd);
 				sprintf(tmp,"%d",ntohs(localaddr.sin_port));
+				
 				execl("/sbin/iptables","iptables","-t","nat","-A","PREROUTING","-p","tcp","--dport",tmp,"-j","REDIRECT","--to-port",argv[3],NULL);
 
 			}
-			default: return 1;
+			default: 
+			printf("Not define\n");
+			//execl("/bin/ls","ls","/home",NULL);
+			return 1;
 		}
 	}
 

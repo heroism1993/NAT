@@ -2,6 +2,7 @@
 /*
 	BY gaochao
 	Use the heap memory.
+	ADD LOCK!!!!!!!
 */
 
 //indexed by name

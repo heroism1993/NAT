@@ -7,7 +7,7 @@
 //indexed by name
 struct stored_data{
 	struct in_addr addr;
-	int port;
+	in_port_t port;
 	pid_t pid;
 };
 

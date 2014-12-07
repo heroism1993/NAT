@@ -7,10 +7,10 @@
 
 inc := common/error.h common/common.h common/config.h
 
-server:
+server:server/*.h server/*.c common/*.h common/*.c
 	gcc -o serv server/*.h server/*.c common/*.h common/*.c 
 
-client:
+client:client/*.h client/*.c common/*.h common/*.c
 	gcc -o cli client/*.h client/*.c common/*.h common/*.c
 #server/server.o: server/server.c server/server.h $(inc)
 

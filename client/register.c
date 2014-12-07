@@ -21,9 +21,9 @@ void ParceReady(struct register_data* data_out, char *name)
 	return ;
 }
 
-void ResultRegister(struct register_data* data_in)
+void ResultRequest(struct register_data* data_in)
 {
-	switch(data_in.result)
+	switch(data_in->result)
 	{
 		case SUCCESS:
 		printf("%s:%d\n",inet_ntoa(data_in->addr),ntohs(data_in->port));

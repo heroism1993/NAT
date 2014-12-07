@@ -12,6 +12,8 @@ options:
 #include "../common/config.h"
 #include "client.h"
 #include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 int main(int argc,char** argv)
 {
 	int sockfd,i,n;
@@ -30,7 +32,11 @@ int main(int argc,char** argv)
 	servaddr.sin_port = htons(SERVER_PORT);
 	inet_pton(AF_INET,SERVER_ADDR,&servaddr.sin_addr);
 	
-	connect(sockfd,(struct sockaddr *) &servaddr,sizeof(servaddr));
+	if(connect(sockfd,(struct sockaddr *) &servaddr,sizeof(servaddr)))
+	{
+		dumperror("connect error\n");
+		return 1;
+	}
 
 	bzero(&data_out,sizeof(data_in));
 	
@@ -51,6 +57,7 @@ int main(int argc,char** argv)
 				break;
 			case SUCCESS:
 			{
+				printf("Register SUCCESS\n");
 				ParceReady(&data_out,argv[2]);
 				write(sockfd,&data_out,sizeof(data_out));
 				if(getsockname(sockfd,(struct sockaddr*)&localaddr,&n))
@@ -59,7 +66,8 @@ int main(int argc,char** argv)
 					return 1;
 				}
 				close(sockfd);
-				execl("/sbin/iptables","iptables","-t","nat","-A","PREROUTING","-p","tcp","--dport",itoa(ntohs(localaddr.sin_port),tmp,10),"-j","REDIRECT","--to-port",argv[3],NULL);
+				sprintf(tmp,"%d",ntohs(localaddr.sin_port));
+				execl("/sbin/iptables","iptables","-t","nat","-A","PREROUTING","-p","tcp","--dport",tmp,"-j","REDIRECT","--to-port",argv[3],NULL);
 
 			}
 			default: return 1;

@@ -66,6 +66,7 @@ int main()
 				n=read(connfd,&data_in,sizeof(data_in));
 				if(data_in.type == READY)
 				{
+					sleep(10);
 					close(connfd);
 					while(1)
 					{

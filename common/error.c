@@ -2,5 +2,6 @@
 
 int dumperror(char * data)
 {
- return 1;
+	printf("%s\n",data);
+	return 1;
 }

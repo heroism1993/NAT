@@ -7,13 +7,18 @@
 
 inc := common/error.h common/common.h common/config.h
 
-server:server/server.o common/error.o server/register.o
-	gcc -o serv $(inc) 
+server:
+	gcc -o serv server/*.h server/*.c common/*.h common/*.c 
 
-server/server.o: server/server.c server/server.h $(inc)
+client:
+	gcc -o cli client/*.h client/*.c common/*.h common/*.c
+#server/server.o: server/server.c server/server.h $(inc)
 
-server/register.o: server/register.c server/server.h $(inc)
+#server/register.o: server/register.c server/server.h $(inc)
 
-common/error.o:common/error.c common/error.h
+#common/error.o:common/error.c common/error.h
 
-client/client.o:$(inc) client/client.c
+#client/client.o:$(inc) client/client.c
+
+clean:
+	rm -f common/*.o server/*.o client/*.o

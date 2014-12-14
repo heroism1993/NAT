@@ -34,6 +34,7 @@ enum{
 
 	//for deregister
 	SOURCE_NOT_MATCH_ERROR = 0x100,
+	NAME_NOT_FOUND_ERROR = 0x200,
 	
 	ERROR_NOT_DEFINE = 0x1000
 };

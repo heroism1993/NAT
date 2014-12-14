@@ -2,6 +2,7 @@
 #include "../common/common.h"
 #include "../common/config.h"
 #include "../common/error.h"
+#include "../common/trie.h"
 #include "server.h"
 #include <unistd.h>
 
@@ -12,6 +13,9 @@ int main()
 	struct sockaddr_in cliaddr,servaddr;
 	struct register_data data_in,data_out;
 	char buf[1024];
+
+	init();
+
 	socketfd = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
 	if(socketfd == -1)
 	{
@@ -52,6 +56,7 @@ int main()
 						register_node(&data_in,&data_out,getpid());
 						break;
 				case REQUEST:
+						printf("request:%s\n",data_in.name);
 						request_node(&data_in,&data_out);
 						break;
 				case DEREGISTER:

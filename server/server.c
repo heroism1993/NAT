@@ -6,6 +6,7 @@
 #include "server.h"
 #include <unistd.h>
 
+
 int main()
 {
 	int socketfd,connfd,tmp,n;
@@ -53,16 +54,23 @@ int main()
 						printf("begin to register:%s with pid:%d\n",data_in.name,getpid());
 						data_in.addr=cliaddr.sin_addr;
 						data_in.port=cliaddr.sin_port;
+						dump_register_data(&data_in);
 						register_node(&data_in,&data_out,getpid());
+						dump_register_data(&data_out);
 						break;
 				case REQUEST:
 						printf("request:%s\n",data_in.name);
+					
+						dump_register_data(&data_in);
 						request_node(&data_in,&data_out);
+						dump_register_data(&data_out);
 						break;
 				case DEREGISTER:
 						data_in.addr=cliaddr.sin_addr;
 						data_in.port=cliaddr.sin_port;
+						dump_register_data(&data_in);
 						deregister_node(&data_in,&data_out);
+						dump_register_data(&data_out);
 						break;
 				default:
 						break;

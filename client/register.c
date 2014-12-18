@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdio.h>
 #include "../common/common.h"
 #include "client.h"
 void ParceRegister(struct register_data *data_out,char *name)

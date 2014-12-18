@@ -8,11 +8,23 @@
 all:server client
 inc := common/error.h common/common.h common/config.h
 
-server:server/*.h server/*.c common/*.h common/*.c
-	gcc -pthread -o serv server/*.h server/*.c common/*.h common/*.c 
+FLAG = -pthread
+server_obj = server/server.o server/register.o
+common_obj = common/error.o common/trie.o
+client_obj = client/register.o client/client.o
 
-client:client/*.h client/*.c common/*.h common/*.c
-	gcc -o cli client/*.h client/*.c common/*.h common/*.c
+server/server.o:server/server.c server/server.h
+server/register.o:server/register.c
+common/error.o:common/error.c common/error.h
+common/trie.o:common/trie.c common/trie.h
+client/register.o:client/register.c
+client/client.o:client/client.h client/client.c
+
+server:$(server_obj) $(common_obj)
+	gcc $(FLAG) -o serv $(server_obj) $(common_obj)
+
+client:$(client_obj) $(common_obj)
+	gcc $(FLAG) -o cli $(client_obj) $(common_obj)
 #server/server.o: server/server.c server/server.h $(inc)
 
 #server/register.o: server/register.c server/server.h $(inc)

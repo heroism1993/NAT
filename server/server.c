@@ -125,7 +125,7 @@ void process(void* data)
 	memcpy(&cliaddr,pack->clientaddr,sizeof(cliaddr));
 	pthread_mutex_unlock(&thread_data);
 
-	printf("My thread id:%d\n",pthread_self());
+	printf("My thread id:%ld\n",pthread_self());
 	printf("connect created with %s:%d\n",inet_ntoa(cliaddr.sin_addr),htons(cliaddr.sin_port));
 	bzero(&data_in,sizeof(data_in));
 	n=read(connfd,&data_in,sizeof(data_in));

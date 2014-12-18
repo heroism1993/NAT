@@ -1,5 +1,7 @@
 #include "error.h"
 #include "common.h"
+#include <stdio.h>
+
 int dumperror(char * data)
 {
 	printf("%s\n",data);

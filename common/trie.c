@@ -1,5 +1,6 @@
 #include "trie.h"
 #include "common.h"
+#include <string.h>
 
 static pthread_mutex_t trie_lock;
 

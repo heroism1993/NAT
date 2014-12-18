@@ -15,7 +15,7 @@ if sys.argv[3]:
   #print port
 
 sockfd = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-sockfd.connect(("192.168.1.100",8601)) #server addr and port
+sockfd.connect(("127.0.0.1",2341)) #server addr and port
 
 
 if(option == "register"):
@@ -31,24 +31,22 @@ if(option == "register"):
     print "Register success!"
     my_addr,my_port = sockfd.getsockname() #local
     #sockfd.close()
-    systype = platform.system()
+    sysstr = platform.system()
     if(sysstr =="Windows"):	
       cmdline = "netsh interface portproxy add v4tov4  listenaddress=%s listenport=%d connectaddress=%s  connectport=%d" % (my_addr,my_port,my_addr,port)
     elif(sysstr == "Linux"):
       cmdline = "/sbin/iptables iptables -t nat -A PREROUTING -p tcp --dport %d -j REDIRECT --to-port %d NULL" % (my_port,port)
     else:
-      #other system  
+      print("other system")  
     print cmdline
     os.system(cmdline)
   elif(result == 1): # same name err
     print "please try again"
-  elif(result == 0x2000) #NON_ALPHABET_NOT_ALLOWED_ERROR
+  elif(result == 0x2000): #NON_ALPHABET_NOT_ALLOWED_ERROR
     print "NON_ALPHABET_NOT_ALLOWED_ERROR"
-  elif(result == 0x02) #ALREADY_REGISTERED_ERROR
+  elif(result == 0x02): #ALREADY_REGISTERED_ERROR
     print "ALREADY_REGISTERED_ERROR"
     #sockfd.close()
-    return 1
-    break
 elif (option == "request"):
   buf = struct.Struct('I20sBBBBII')
   send_values = ( 2, name ,0,0,0,0,0,0) #socket.htonl(2) to network byte ordered

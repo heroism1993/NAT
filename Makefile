@@ -9,7 +9,7 @@ all:server client
 inc := common/error.h common/common.h common/config.h
 
 server:server/*.h server/*.c common/*.h common/*.c
-	gcc -o serv server/*.h server/*.c common/*.h common/*.c 
+	gcc -pthread -o serv server/*.h server/*.c common/*.h common/*.c 
 
 client:client/*.h client/*.c common/*.h common/*.c
 	gcc -o cli client/*.h client/*.c common/*.h common/*.c

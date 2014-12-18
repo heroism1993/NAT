@@ -25,13 +25,6 @@ server:$(server_obj) $(common_obj)
 
 client:$(client_obj) $(common_obj)
 	gcc $(FLAG) -o cli $(client_obj) $(common_obj)
-#server/server.o: server/server.c server/server.h $(inc)
-
-#server/register.o: server/register.c server/server.h $(inc)
-
-#common/error.o:common/error.c common/error.h
-
-#client/client.o:$(inc) client/client.c
 
 clean:
 	rm -f common/*.o server/*.o client/*.o cli serv
